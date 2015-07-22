@@ -13,7 +13,7 @@
   %tbody
     - @entries.each do |entry|
       %tr
-        %td= entry.user
+        %td= link_to entry.user.name, user_path(entry.user)
         %td= entry.title
         %td= entry.tags.map{|tag| tag.body}.join(',')
         %td= link_to 'Show', entry
