@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   end
 
   resources :entries do
+    member do
+      post :stock
+      post :unstock
+    end
     resources :comments
   end
 

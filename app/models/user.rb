@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_many :user_tags
   has_many :tags, through: :user_tags
 
+  has_many :user_entries
+  has_many :stock_entries, through: :user_entries, source: :entry
+
   def follow(user)
     unless self.following?(user)
       self.followers << user

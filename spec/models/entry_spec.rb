@@ -25,4 +25,56 @@ RSpec.describe Entry, type: :model do
       }
     end
   end
+  describe "#stock" do
+    context "未ストック" do
+      let!(:user1) { create(:user) }
+      let!(:user2) { create(:user) }
+      let!(:entry1) { create(:entry, user:user2) }
+      it {
+        expect(Entry.stocking?(user1, entry1)).to eq false
+        expect(Entry.stock(user1, entry1)).to be_truthy
+        user1.reload
+        expect(Entry.stocking?(user1, entry1)).to eq true
+      }
+    end
+    context "ストック済" do
+      let!(:user1) { create(:user) }
+      let!(:user2) { create(:user) }
+      let!(:entry1) { create(:entry, user:user2) }
+      before do
+        Entry.stock(user1, entry1)
+        user1.reload
+      end
+      it {
+        expect(Entry.stocking?(user1, entry1)).to eq true
+        expect(Entry.stock(user1, entry1)).to be_falsey
+      }
+    end
+  end
+  describe "#unstock" do
+    context "未ストック" do
+      let!(:user1) { create(:user) }
+      let!(:user2) { create(:user) }
+      let!(:entry1) { create(:entry, user:user2) }
+      it {
+        expect(Entry.stocking?(user1, entry1)).to eq false
+        expect(Entry.unstock(user1, entry1)).to be_falsey
+      }
+    end
+    context "ストック済み" do
+      let!(:user1) { create(:user) }
+      let!(:user2) { create(:user) }
+      let!(:entry1) { create(:entry, user:user2) }
+      before do
+        Entry.stock(user1, entry1)
+        user1.reload
+      end
+      it {
+        expect(Entry.stocking?(user1, entry1)).to eq true
+        expect(Entry.unstock(user1, entry1)).to be_truthy
+        user1.reload
+        expect(Entry.stocking?(user1, entry1)).to eq false
+      }
+    end
+  end
 end

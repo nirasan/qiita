@@ -13,7 +13,7 @@ class Tag < ActiveRecord::Base
 
   def self.unfollow(user, tag)
     if self.following?(user, tag)
-      user.tags.find_by(id: tag.id).destroy
+      user.user_tags.find_by(tag: tag).destroy
     end
   end
 

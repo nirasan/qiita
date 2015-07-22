@@ -1,4 +1,12 @@
-%p#notice= notice
+%h1= @entry.title
+
+- if user_signed_in?
+  - if Entry.stocking?(current_user, @entry)
+    = link_to unstock_entry_path(@entry), method: :post do
+      %button.btn.btn-danger ストック解除
+  - else
+    = link_to stock_entry_path(@entry), method: :post do
+      %button.btn.btn-success ストック
 
 %p
   %b User:

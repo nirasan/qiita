@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_entry, only: [:show, :edit, :update, :destroy]
+  before_action :set_entry, only: [:show, :edit, :update, :destroy, :stock, :unstock]
 
   def index
     @entries = Entry.all
@@ -48,6 +48,26 @@ class EntriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def stock
+    respond_to do |format|
+      if Entry.stock(current_user, @entry)
+        format.html { redirect_to @entry, notice: 'ストックしました。' }
+      else
+        format.html { redirect_to @entry, alert: 'ストックできませんでした。' }
+      end
+    end
+  end
+
+  def unstock
+    respond_to do |format|
+      if Entry.unstock(current_user, @entry)
+        format.html { redirect_to @entry, notice: 'ストック解除しました。' }
+      else
+        format.html { redirect_to @entry, alert: 'ストック解除できませんでした。' }
+      end
     end
   end
 
