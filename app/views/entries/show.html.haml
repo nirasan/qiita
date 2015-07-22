@@ -13,3 +13,16 @@
 = link_to 'Edit', edit_entry_path(@entry)
 \|
 = link_to 'Back', entries_path
+
+%h2 コメント
+
+= link_to 'コメントする', new_entry_comment_path(@entry)
+
+%ul
+  - @entry.comments.each do |comment|
+    %li
+      = comment.user.name
+      = comment.body
+      - if user_signed_in? && comment.user == current_user
+        = link_to '編集', edit_entry_comment_path(@entry, comment)
+        = link_to '削除', entry_comment_path(@entry, comment), method: :delete, data: { confirm: '削除しますか？' }

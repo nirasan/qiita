@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root to: 'entries#index'
-  resources :entries
   devise_for :users
+  resources :entries do
+    resources :comments
+  end
 end
