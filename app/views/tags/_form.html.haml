@@ -1,9 +1,7 @@
-= simple_form_for(@entry) do |f|
+= simple_form_for(@tag) do |f|
   = f.error_notification
 
   .form-inputs
-    = f.input :title
-    = f.input :tag_string
     = f.input :body
 
   .form-actions

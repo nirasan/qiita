@@ -5,7 +5,7 @@
     %tr
       %th User
       %th Title
-      %th Body
+      %th Tag
       %th
       %th
       %th
@@ -15,7 +15,7 @@
       %tr
         %td= entry.user
         %td= entry.title
-        %td= entry.body
+        %td= entry.tags.map{|tag| tag.body}.join(',')
         %td= link_to 'Show', entry
         %td= link_to 'Edit', edit_entry_path(entry)
         %td= link_to 'Destroy', entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
