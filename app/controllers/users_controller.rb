@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only:[]
+  before_action :authenticate_user!, only:[:follow, :unfollow]
   before_action :set_user, only: [:show, :follow, :unfollow]
 
   def show

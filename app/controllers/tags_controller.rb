@@ -1,28 +1,21 @@
 class TagsController < ApplicationController
-  before_action :set_tag, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only:[:follow, :unfollow]
+  before_action :set_tag, only: [:show, :edit, :update, :destroy, :follow, :unfollow]
 
-  # GET /tags
-  # GET /tags.json
   def index
     @tags = Tag.all
   end
 
-  # GET /tags/1
-  # GET /tags/1.json
   def show
   end
 
-  # GET /tags/new
   def new
     @tag = Tag.new
   end
 
-  # GET /tags/1/edit
   def edit
   end
 
-  # POST /tags
-  # POST /tags.json
   def create
     @tag = Tag.new(tag_params)
 
@@ -37,8 +30,6 @@ class TagsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tags/1
-  # PATCH/PUT /tags/1.json
   def update
     respond_to do |format|
       if @tag.update(tag_params)
@@ -51,8 +42,6 @@ class TagsController < ApplicationController
     end
   end
 
-  # DELETE /tags/1
-  # DELETE /tags/1.json
   def destroy
     @tag.destroy
     respond_to do |format|
@@ -61,14 +50,33 @@ class TagsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tag
-      @tag = Tag.find(params[:id])
+  def follow
+    respond_to do |format|
+      if Tag.follow(current_user, @tag)
+        format.html { redirect_to @tag, notice: 'フォローしました。' }
+      else
+        format.html { redirect_to @tag, alert: 'フォローできませんでした。' }
+      end
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tag_params
-      params.require(:tag).permit(:body)
+  def unfollow
+    respond_to do |format|
+      if Tag.unfollow(current_user, @tag)
+        format.html { redirect_to @tag, notice: 'フォロー解除しました。' }
+      else
+        format.html { redirect_to @tag, alert: 'フォロー解除できませんでした。' }
+      end
     end
+  end
+
+  private
+  def set_tag
+    @tag = Tag.find(params[:id])
+  end
+
+  def tag_params
+    params.require(:tag).permit(:body)
+  end
+
 end

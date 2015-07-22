@@ -14,6 +14,11 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :tags
+  resources :tags do
+    member do
+      post :follow
+      post :unfollow
+    end
+  end
 
 end
