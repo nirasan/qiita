@@ -8,3 +8,17 @@
 
   .form-actions
     = f.button :submit
+
+%br
+%br
+
+.panel.panel-default
+  .panel-heading
+    %h4
+      プレビュー
+      .btn-group.pull-right
+        %button.btn.btn-primary{type:'button', id:'preview-button'} 更新
+      = form_tag preview_entries_path, id: 'preview-form', remote: true do
+        = hidden_field_tag 'body', '', id: 'preview-body'
+  .panel-body
+    #preview

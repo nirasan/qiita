@@ -16,7 +16,7 @@
   = @entry.title
 %p
   %b Body:
-  = @entry.render_markdown.html_safe
+  = Entry.render_markdown(@entry.body).html_safe
 
 = link_to 'Edit', edit_entry_path(@entry)
 \|

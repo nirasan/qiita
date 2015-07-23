@@ -15,6 +15,9 @@ Rails.application.routes.draw do
       post :stock
       post :unstock
     end
+    collection do
+      post :preview
+    end
     resources :comments
   end
 

@@ -1,0 +1,3 @@
+var el = $('#preview');
+el.empty();
+el.html("<%= escape_javascript(render('entries/preview', body:@body)) %>");

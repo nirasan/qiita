@@ -71,6 +71,13 @@ class EntriesController < ApplicationController
     end
   end
 
+  def preview
+    @body = params['body']
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
   def set_entry
     @entry = Entry.find(params[:id])
