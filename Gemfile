@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'enumerize'
 gem "kaminari"
 gem 'default_value_for'
+gem 'redcarpet'
 
 #gem 'ransack'
 #gem "gretel"

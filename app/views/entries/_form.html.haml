@@ -4,7 +4,7 @@
   .form-inputs
     = f.input :title
     = f.input :tag_string
-    = f.input :body
+    = f.input :body, as: :text, input_html: {rows: 20}
 
   .form-actions
     = f.button :submit

@@ -43,4 +43,7 @@ class Entry < ActiveRecord::Base
     user.entries.find_by(id: entry.id).present?
   end
 
+  def render_markdown
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(self.body)
+  end
 end
