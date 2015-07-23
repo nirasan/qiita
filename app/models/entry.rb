@@ -9,6 +9,7 @@ class Entry < ActiveRecord::Base
   has_many :stock_users, through: :user_entries, source: :user
 
   after_save :tag_string_to_tags
+  after_update :create_info
 
   def tag_string_to_tags
     if tag_string_changed?
@@ -29,7 +30,7 @@ class Entry < ActiveRecord::Base
 
   def self.stock(user, entry)
     unless self.stocking?(user, entry)
-      user.entries << entry
+      user.stock_entries << entry
     end
   end
 
@@ -40,7 +41,13 @@ class Entry < ActiveRecord::Base
   end
 
   def self.stocking?(user, entry)
-    user.entries.find_by(id: entry.id).present?
+    user.stock_entries.find_by(id: entry.id).present?
+  end
+
+  def create_info
+    stock_users.each do |stock_user|
+      Info.create_stock_update(stock_user, self)
+    end
   end
 
   def self.render_markdown(text)

@@ -1,0 +1,14 @@
+- case info.info_type
+  - when Info.info_type.comment
+    = link_to info.data[:entry][:title], entry_path(id: info.data[:entry][:id])
+    に
+    = link_to info.data[:comment_user][:name], user_path(id: info.data[:comment_user][:id])
+    がコメントしました。
+  - when Info.info_type.stock
+    = link_to info.data[:entry][:title], entry_path(id: info.data[:entry][:id])
+    が
+    = link_to info.data[:stock_user][:name], user_path(id: info.data[:stock_user][:id])
+    にストックされました。
+  - when Info.info_type.stock_update
+    = link_to info.data[:entry][:title], entry_path(id: info.data[:entry][:id])
+    が更新されました

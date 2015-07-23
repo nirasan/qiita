@@ -28,4 +28,6 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :infos, only: [:index]
+
 end

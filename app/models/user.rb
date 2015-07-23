@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :user_entries
   has_many :stock_entries, through: :user_entries, source: :entry
 
+  has_many :infos
+
   def follow(user)
     unless self.following?(user)
       self.followers << user
