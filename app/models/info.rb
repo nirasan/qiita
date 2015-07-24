@@ -24,15 +24,4 @@ class Info < ActiveRecord::Base
       data: {entry: {id: entry.id, title: entry.title}})
   end
 
-  def to_s
-    case info_type
-      when Info.info_type.comment then
-        "%s に %s からのコメントがつきました" % [data[:entry].name, data[:comment_user].name]
-      when Info.info_type.stock then
-        "%s が %s にストックされました" % [data[:entry].name, data[:stock_user].name]
-      when Info.info_type.stock_update then
-        "ストック中の %s が更新されました" % [data[:entry].name]
-    end
-  end
-
 end
