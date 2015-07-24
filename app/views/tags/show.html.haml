@@ -1,9 +1,10 @@
-%h1= @tag.body
+%h1= "タグ: #{@tag.body}"
 
 = render 'tags/follow_button', tag: @tag
 
-%ul
-  - @tag.entries.each do |entry|
-    %li
-      = link_to entry.user.name, user_path(entry.user)
-      = link_to entry.title, entry_path(entry)
+%h3 タグの付いた記事一覧
+
+%table.table.table-striped
+  %tbody
+    - @tag.entries.each do |entry|
+      = render 'entries/entry_row', entry: entry

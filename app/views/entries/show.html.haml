@@ -3,26 +3,32 @@
 %br
 
 - if user_signed_in?
-  - if Entry.stocking?(current_user, @entry)
-    = link_to unstock_entry_path(@entry), method: :post do
-      %button.btn.btn-danger ストック解除
+  - if current_user == @entry.user
+    = link_to edit_entry_path(entry) do
+      %button.btn.btn-default 編集
+    = link_to entry, :method => :delete, :data => { :confirm => '削除しますか？' } do
+      %button.btn.btn-default 削除
   - else
-    = link_to stock_entry_path(@entry), method: :post do
-      %button.btn.btn-success ストック
+    - if Entry.stocking?(current_user, @entry)
+      = link_to unstock_entry_path(@entry), method: :post do
+        %button.btn.btn-danger ストック解除
+    - else
+      = link_to stock_entry_path(@entry), method: :post do
+        %button.btn.btn-success ストック
 
+%h3 タグ
+- @entry.tags.each do |tag|
+  = render 'tags/tag_link', tag: tag
+
+%h3 本文
 = Entry.render_markdown(@entry.body).html_safe
 
-%hr
+%h3 コメント
 
-%h2 コメント
+= link_to new_entry_comment_path(@entry) do
+  %button.btn.btn-default コメントする
 
-= link_to 'コメントする', new_entry_comment_path(@entry)
-
-%ul
-  - @entry.comments.each do |comment|
-    %li
-      = comment.user.name
-      = comment.body
-      - if user_signed_in? && comment.user == current_user
-        = link_to '編集', edit_entry_comment_path(@entry, comment)
-        = link_to '削除', entry_comment_path(@entry, comment), method: :delete, data: { confirm: '削除しますか？' }
+%table.table.table-striped
+  %tbody
+    - @entry.comments.each do |comment|
+      = render 'comments/comment_row', comment: comment, show_owner: true

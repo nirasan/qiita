@@ -2,8 +2,9 @@
   = link_to @user.name, user_path(@user)
   のフォロワー
 
-%ul
-  - @user.followees.each do |followee|
-    %li
-      = link_to followee.name, user_path(followee)
-      = render 'users/follow_button', user: followee
+%table.table.table-striped
+  %tbody
+    - @user.followees.each do |followee|
+      %tr
+        %td= link_to followee.name, user_path(followee)
+        %td= render 'users/follow_button', user: followee

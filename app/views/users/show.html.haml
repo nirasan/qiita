@@ -4,7 +4,7 @@
 
 %h2= link_to "フォロー中のタグ", tags_user_path(@user)
 - @user.tags.each do |tag|
-  = link_to tag.body, tag_path(tag)
+  = render 'tags/tag_link', tag: tag
 
 %h2= link_to "フォロー中のユーザー", followers_user_path(@user)
 - @user.followers.each do |follower|
@@ -14,20 +14,21 @@
 - @user.followees.each do |followee|
   = link_to followee.name, user_path(followee)
 
-%h2 最近の投稿
-%ul
-  - @user.entries.each do |entry|
-    = render 'entries/entry_row', entry: entry
-= link_to 'もっとみる', entries_user_path(@user)
+%h2= link_to '最近の投稿', entries_user_path(@user)
+%table.table.table-striped
+  %tbody
+    - @user.entries.each do |entry|
+      = render 'entries/entry_row', entry: entry
 
-%h2 ストックした投稿
-%ul
-  - @user.stock_entries.each do |entry|
-    = render 'entries/entry_row', entry: entry
-= link_to 'もっとみる', stocks_user_path(@user)
+%h2= link_to 'ストックした投稿', stocks_user_path(@user)
+%table.table.table-striped
+  %tbody
+    - @user.stock_entries.each do |entry|
+      = render 'entries/entry_row', entry: entry
 
-%h2 コメント
-%ul
-  - @user.comments.each do |comment|
-    = render 'comments/comment_row', comment: comment
-= link_to 'もっとみる', comments_user_path(@user)
+%h2= link_to 'コメント', comments_user_path(@user)
+%table.table.table-striped
+  %tbody
+    - @user.comments.each do |comment|
+      = render 'comments/comment_row', comment: comment
+

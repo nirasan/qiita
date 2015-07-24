@@ -1,25 +1,6 @@
-%h1 Listing entries
+%h1 記事一覧
 
 %table.table.table-striped
-  %thead
-    %tr
-      %th User
-      %th Title
-      %th Tag
-      %th
-      %th
-      %th
-
   %tbody
     - @entries.each do |entry|
-      %tr
-        %td= link_to entry.user.name, user_path(entry.user)
-        %td= entry.title
-        %td= entry.tags.map{|tag| tag.body}.join(',')
-        %td= link_to 'Show', entry
-        %td= link_to 'Edit', edit_entry_path(entry)
-        %td= link_to 'Destroy', entry, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Entry', new_entry_path
+      = render 'entries/entry_row', entry: entry

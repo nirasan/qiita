@@ -1,9 +1,24 @@
 - entry = comment.entry
-%li
-  = link_to entry.user.name, user_path(entry.user)
-  の
-  = link_to entry.title, entry_path(entry)
-  にコメント
-  %br
-  = comment.body
-  = "(#{comment.updated_at})"
+%tr
+  %td
+    - if local_assigns.has_key? :show_owner
+      %span.small
+        = link_to comment.user.name, user_path(comment.user)
+        が
+        = comment.updated_at
+        にコメント
+    - else
+      %span.small
+        = link_to entry.user.name, user_path(entry.user)
+        の
+        = link_to entry.title, entry_path(entry)
+        へ
+        = comment.updated_at
+        にコメント
+    %br
+    = comment.body
+    - if user_signed_in? && current_user = comment.user
+      = link_to edit_entry_comment_path(entry, comment) do
+        %button.btn.btn-default.btn-xs 編集
+      = link_to entry_comment_path(entry, comment), :method => :delete, :data => { :confirm => '削除しますか？' } do
+        %button.btn.btn-default.btn-xs 削除

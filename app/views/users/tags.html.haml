@@ -2,8 +2,9 @@
   = link_to @user.name, user_path(@user)
   のフォロー中のタグ
 
-%ul
-  - @user.tags.each do |tag|
-    %li
-      = link_to tag.body, tag_path(tag)
-      = render 'tags/follow_button', tag: tag
+%table.table.table-striped
+  %tbody
+    - @user.tags.each do |tag|
+      %tr
+        %td= link_to tag.body, tag_path(tag)
+        %td= render 'tags/follow_button', tag: tag
