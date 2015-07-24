@@ -26,10 +26,10 @@ Rails.application.routes.draw do
     collection do
       post :preview
     end
-    resources :comments
+    resources :comments, only: [:new, :edit, :create, :update, :destroy]
   end
 
-  resources :tags do
+  resources :tags, only: [:show] do
     member do
       post :follow
       post :unfollow
