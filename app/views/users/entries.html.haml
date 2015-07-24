@@ -1,0 +1,7 @@
+%h1
+  = link_to @user.name, user_path(@user)
+  の投稿一覧
+
+%ul
+  - @user.entries.each do |entry|
+    = render 'entries/entry_row', entry: entry

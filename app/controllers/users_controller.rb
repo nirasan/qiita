@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only:[:follow, :unfollow]
-  before_action :set_user, only: [:show, :follow, :unfollow]
+  before_action :set_user
 
   def show
   end
@@ -23,6 +23,24 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, alert: 'フォロー解除できませんでした。' }
       end
     end
+  end
+
+  def entries
+  end
+
+  def stocks
+  end
+
+  def comments
+  end
+
+  def followers
+  end
+
+  def followees
+  end
+
+  def tags
   end
 
   private

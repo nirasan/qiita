@@ -1,0 +1,7 @@
+%h1
+  = link_to @user.name, user_path(@user)
+  のストックした投稿
+
+%ul
+  - @user.stock_entries.each do |entry|
+    = render 'entries/entry_row', entry: entry

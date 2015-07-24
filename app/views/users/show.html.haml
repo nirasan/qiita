@@ -1,9 +1,33 @@
 %h1= @user.name
 
-- if user_signed_in? && current_user.following?(@user)
-  = link_to unfollow_user_path(@user), method: :post do
-    %button.btn.btn-danger フォロー解除
-- else
-  = link_to follow_user_path(@user), method: :post do
-    %button.btn.btn-success フォロー
+= render 'users/follow_button', user: @user
 
+%h2= link_to "フォロー中のタグ", tags_user_path(@user)
+- @user.tags.each do |tag|
+  = link_to tag.body, tag_path(tag)
+
+%h2= link_to "フォロー中のユーザー", followers_user_path(@user)
+- @user.followers.each do |follower|
+  = link_to follower.name, user_path(follower)
+
+%h2= link_to "フォロワー", followees_user_path(@user)
+- @user.followees.each do |followee|
+  = link_to followee.name, user_path(followee)
+
+%h2 最近の投稿
+%ul
+  - @user.entries.each do |entry|
+    = render 'entries/entry_row', entry: entry
+= link_to 'もっとみる', entries_user_path(@user)
+
+%h2 ストックした投稿
+%ul
+  - @user.stock_entries.each do |entry|
+    = render 'entries/entry_row', entry: entry
+= link_to 'もっとみる', stocks_user_path(@user)
+
+%h2 コメント
+%ul
+  - @user.comments.each do |comment|
+    = render 'comments/comment_row', comment: comment
+= link_to 'もっとみる', comments_user_path(@user)

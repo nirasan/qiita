@@ -1,12 +1,6 @@
 %h1= @tag.body
 
-- if user_signed_in?
-  - if Tag.following?(current_user, @tag)
-    = link_to unfollow_tag_path(@tag), method: :post do
-      %button.btn.btn-danger フォロー解除
-  - else
-    = link_to follow_tag_path(@tag), method: :post do
-      %button.btn.btn-success フォロー
+= render 'tags/follow_button', tag: @tag
 
 %ul
   - @tag.entries.each do |entry|

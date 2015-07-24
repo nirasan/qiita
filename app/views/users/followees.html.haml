@@ -1,0 +1,9 @@
+%h1
+  = link_to @user.name, user_path(@user)
+  のフォロワー
+
+%ul
+  - @user.followees.each do |followee|
+    %li
+      = link_to followee.name, user_path(followee)
+      = render 'users/follow_button', user: followee

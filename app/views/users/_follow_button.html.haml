@@ -1,0 +1,6 @@
+- if user_signed_in? && current_user.following?(user)
+  = link_to unfollow_user_path(user), method: :post do
+    %button.btn.btn-danger フォロー解除
+- else
+  = link_to follow_user_path(user), method: :post do
+    %button.btn.btn-success フォロー

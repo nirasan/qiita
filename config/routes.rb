@@ -2,11 +2,19 @@ Rails.application.routes.draw do
 
   root to: 'entries#index'
 
+  get :my, to: 'my#index'
+
   devise_for :users
   resources :users, only: [:show] do
     member do
       post :follow
       post :unfollow
+      get :entries
+      get :comments
+      get :stocks
+      get :followers
+      get :followees
+      get :tags
     end
   end
 

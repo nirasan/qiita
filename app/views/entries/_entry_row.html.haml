@@ -1,0 +1,8 @@
+%li
+  = link_to entry.user.name, user_path(entry.user)
+  %br
+  = link_to entry.title, entry_path(entry)
+  = "(#{entry.updated_at})"
+  %br
+  - entry.tags.each do |tag|
+    = link_to tag.body, tag_path(tag)

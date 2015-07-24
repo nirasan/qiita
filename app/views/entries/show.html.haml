@@ -1,5 +1,7 @@
 %h1= @entry.title
 
+%br
+
 - if user_signed_in?
   - if Entry.stocking?(current_user, @entry)
     = link_to unstock_entry_path(@entry), method: :post do
@@ -8,19 +10,9 @@
     = link_to stock_entry_path(@entry), method: :post do
       %button.btn.btn-success ストック
 
-%p
-  %b User:
-  = @entry.user
-%p
-  %b Title:
-  = @entry.title
-%p
-  %b Body:
-  = Entry.render_markdown(@entry.body).html_safe
+= Entry.render_markdown(@entry.body).html_safe
 
-= link_to 'Edit', edit_entry_path(@entry)
-\|
-= link_to 'Back', entries_path
+%hr
 
 %h2 コメント
 

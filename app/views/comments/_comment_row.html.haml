@@ -1,0 +1,9 @@
+- entry = comment.entry
+%li
+  = link_to entry.user.name, user_path(entry.user)
+  の
+  = link_to entry.title, entry_path(entry)
+  にコメント
+  %br
+  = comment.body
+  = "(#{comment.updated_at})"

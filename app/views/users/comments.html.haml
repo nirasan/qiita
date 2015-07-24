@@ -1,0 +1,7 @@
+%h1
+  = link_to @user.name, user_path(@user)
+  のコメント
+
+%ul
+  - @user.comments.each do |comment|
+    = render 'comments/comment_row', comment: comment
