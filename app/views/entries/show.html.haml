@@ -4,9 +4,9 @@
 
 - if user_signed_in?
   - if current_user == @entry.user
-    = link_to edit_entry_path(entry) do
+    = link_to edit_entry_path(@entry) do
       %button.btn.btn-default 編集
-    = link_to entry, :method => :delete, :data => { :confirm => '削除しますか？' } do
+    = link_to @entry, :method => :delete, :data => { :confirm => '削除しますか？' } do
       %button.btn.btn-default 削除
   - else
     - if Entry.stocking?(current_user, @entry)

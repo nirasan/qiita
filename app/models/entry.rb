@@ -8,8 +8,11 @@ class Entry < ActiveRecord::Base
   has_many :user_entries
   has_many :stock_users, through: :user_entries, source: :user
 
-  after_save :tag_string_to_tags
+  after_create :tag_string_to_tags
+  after_update :tag_string_to_tags #NOTE タグを作成してからフィードの作成が実行されるように after_save ではなく after_create と after_update を使っている
   after_update :create_info
+  after_create :create_feed_at_created
+  after_update :create_feed_at_updated
 
   def tag_string_to_tags
     if tag_string_changed?
@@ -31,6 +34,7 @@ class Entry < ActiveRecord::Base
   def self.stock(user, entry)
     unless self.stocking?(user, entry)
       user.stock_entries << entry
+      Feed.create_at_entry_stocked(entry, user)
     end
   end
 
@@ -52,5 +56,13 @@ class Entry < ActiveRecord::Base
 
   def self.render_markdown(text)
     Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(text)
+  end
+
+  def create_feed_at_created
+    Feed.create_at_entry_created(self)
+  end
+
+  def create_feed_at_updated
+    Feed.create_at_entry_updated(self)
   end
 end

@@ -1,0 +1,27 @@
+- entry = feed.entry
+%tr
+  %td
+    %span.small
+      - case feed.feed_type
+        - when Feed.feed_type.user_create
+          = link_to feed.user.name, user_path(feed.user)
+          が新しい投稿をしました
+        - when Feed.feed_type.user_update
+          = link_to feed.user.name, user_path(feed.user)
+          が更新をしました
+        - when Feed.feed_type.user_stock
+          = link_to feed.user.name, user_path(feed.user)
+          がストックしました"
+        - when Feed.feed_type.user_comment
+          = link_to feed.user.name, user_path(feed.user)
+          がコメントしました
+        - when Feed.feed_type.tag_create
+          = link_to feed.tag.body, user_path(feed.tag)
+          に新しい投稿がありました
+        - when Feed.feed_type.tag_update
+          = link_to feed.tag.body, user_path(feed.tag)
+          の記事が更新されました
+    %br
+    = link_to entry.title, entry_path(entry)
+    - entry.tags.each do |tag|
+      = render 'tags/tag_link', tag: tag

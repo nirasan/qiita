@@ -1,0 +1,6 @@
+%h3 フィード
+
+%table.table.table-striped
+  %tbody
+    - @feeds.each do |feed|
+      = render 'feeds/feed_row', feed: feed

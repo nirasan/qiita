@@ -2,8 +2,6 @@ Rails.application.routes.draw do
 
   root to: 'entries#index'
 
-  get :my, to: 'my#index'
-
   devise_for :users
   resources :users, only: [:show] do
     member do
@@ -37,5 +35,6 @@ Rails.application.routes.draw do
   end
 
   resources :infos, only: [:index]
+  resources :feeds, only: [:index]
 
 end

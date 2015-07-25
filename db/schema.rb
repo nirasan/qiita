@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723122047) do
+ActiveRecord::Schema.define(version: 20150725092504) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -44,6 +44,19 @@ ActiveRecord::Schema.define(version: 20150723122047) do
 
   add_index "entry_tags", ["entry_id"], name: "index_entry_tags_on_entry_id"
   add_index "entry_tags", ["tag_id"], name: "index_entry_tags_on_tag_id"
+
+  create_table "feeds", force: :cascade do |t|
+    t.integer  "feed_type"
+    t.integer  "user_id"
+    t.integer  "tag_id"
+    t.integer  "entry_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "feeds", ["entry_id"], name: "index_feeds_on_entry_id"
+  add_index "feeds", ["tag_id"], name: "index_feeds_on_tag_id"
+  add_index "feeds", ["user_id"], name: "index_feeds_on_user_id"
 
   create_table "follow_users", force: :cascade do |t|
     t.integer  "from_user_id"
