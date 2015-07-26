@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       post :preview
     end
     resources :comments, only: [:new, :edit, :create, :update, :destroy]
+    resources :edit_requests
   end
 
   resources :tags, only: [:show] do

@@ -21,6 +21,7 @@ gem 'enumerize'
 gem "kaminari"
 gem 'default_value_for'
 gem 'redcarpet'
+gem 'diff_match_patch'
 
 #gem 'ransack'
 #gem "gretel"

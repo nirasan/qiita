@@ -5,16 +5,20 @@
 - if user_signed_in?
   - if current_user == @entry.user
     = link_to edit_entry_path(@entry) do
-      %button.btn.btn-default 編集
+      %button.btn.btn-xs 編集
     = link_to @entry, :method => :delete, :data => { :confirm => '削除しますか？' } do
-      %button.btn.btn-default 削除
+      %button.btn.btn-xs 削除
   - else
     - if Entry.stocking?(current_user, @entry)
       = link_to unstock_entry_path(@entry), method: :post do
-        %button.btn.btn-danger ストック解除
+        %button.btn.btn-default.btn-xs ストック解除
     - else
       = link_to stock_entry_path(@entry), method: :post do
-        %button.btn.btn-success ストック
+        %button.btn.btn-success.btn-xs ストック
+    = link_to entry_edit_requests_path(@entry) do
+      %button.btn.btn-default.btn-xs 編集リクエスト一覧
+    = link_to new_entry_edit_request_path(@entry) do
+      %button.btn.btn-default.btn-xs 編集リクエストを作成する
 
 %h3 タグ
 - @entry.tags.each do |tag|
