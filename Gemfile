@@ -23,14 +23,6 @@ gem 'default_value_for'
 gem 'redcarpet'
 gem 'diff_match_patch'
 
-#gem 'ransack'
-#gem "gretel"
-#gem 'meta-tags', :require => 'meta_tags'
-#gem 'sprockets'
-#gem 'squeel'
-#gem 'inherited_resources'
-#gem 'dekiru'
-
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
@@ -64,12 +56,11 @@ end
 group :production do
   gem 'unicorn'
   gem 'rails_12factor'
-  #gem 'pg'
+  gem 'pg'
 end
 
 group :test do
   gem 'capybara'
-  #gem 'database_cleaner'
   gem 'database_rewinder'
   gem 'email_spec'
 end
