@@ -1,0 +1,17 @@
+ja:
+  simple_form:
+    "yes": 'はい'
+    "no": 'いいえ'
+    required:
+      text: '必須'
+      mark: '*'
+    error_notification:
+      default_message: "Please review the problems below:"
+    labels:
+      defaults:
+        body: 本文
+        title: タイトル
+        tag_string: タグ
+    hints:
+      defaults:
+        tag_string: 'カンマ区切りでタグ名を入力してください'
