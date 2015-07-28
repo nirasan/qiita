@@ -25,7 +25,13 @@ Rails.application.routes.draw do
       post :preview
     end
     resources :comments, only: [:new, :edit, :create, :update, :destroy]
-    resources :edit_requests
+    resources :edit_requests, only: [:index, :show, :new, :create, :destroy] do
+      member do
+        get :edit_apply
+        post :update_apply
+        post :apply
+      end
+    end
   end
 
   resources :tags, only: [:show] do

@@ -1,15 +1,45 @@
-%p
-  %b User:
-  = @edit_request.user
-%p
-  %b Entry:
-  = @edit_request.entry
-%p
-  %b Body:
-  = @edit_request.body
-%p
-  %b Old body:
-  = @edit_request.old_body
+%h1
+  = link_to @entry.title, entry_path(@entry)
+  への編集リクエスト
+
+- if @entry.user == current_user
+  = link_to apply_entry_edit_request_path(@entry, @edit_request), method: :post do
+    %button.btn.btn-default 編集リクエストを適用する
+  = link_to edit_apply_entry_edit_request_path(@entry, @edit_request) do
+    %button.btn.btn-default 編集リクエストを編集してから適用する
+
+- if @entry.user == current_user || @edit_request.user == current_user
+  = link_to entry_edit_request_path(@entry, @edit_request), :method => :delete, :data => { :confirm => '削除しますか？' } do
+    %button.btn.btn-danger 削除
+
+%br
+%br
+
+.panel.panel-default
+  .panel-heading
+    %b 編集リクエストタイトル
+  .panel-body
+    = @edit_request.title
+
+.panel.panel-default
+  .panel-heading
+    %b 編集リクエスト本文
+  .panel-body
+    = Entry.render_markdown(@edit_request.body).html_safe
+
+.panel.panel-default
+  .panel-heading
+    %b 編集リクエスト差分
+    (
+    %span.insert 追加した行
+    %span.delete 削除した行
+    )
+  .panel-body
+    - EditRequest.diff_lineMode(@edit_request.old_body, @edit_request.body).each do |diff|
+      -#%span{class: diff[0]}= diff[1].gsub(/(\r\n|\r|\n)/, "<br />")
+      - diff[1].split(/\r\n/).each do |line|
+        %span{class: diff[0]}= line
+        <br />
 
 = link_to 'Show', entry_edit_request_path(@entry, @edit_request)
 \|

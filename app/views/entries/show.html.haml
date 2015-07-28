@@ -5,9 +5,11 @@
 - if user_signed_in?
   - if current_user == @entry.user
     = link_to edit_entry_path(@entry) do
-      %button.btn.btn-xs 編集
+      %button.btn.btn-default.btn-xs 編集
     = link_to @entry, :method => :delete, :data => { :confirm => '削除しますか？' } do
-      %button.btn.btn-xs 削除
+      %button.btn.btn-default.btn-xs 削除
+    = link_to entry_edit_requests_path(@entry) do
+      %button.btn.btn-default.btn-xs 編集リクエスト一覧
   - else
     - if Entry.stocking?(current_user, @entry)
       = link_to unstock_entry_path(@entry), method: :post do
@@ -20,19 +22,31 @@
     = link_to new_entry_edit_request_path(@entry) do
       %button.btn.btn-default.btn-xs 編集リクエストを作成する
 
-%h3 タグ
-- @entry.tags.each do |tag|
-  = render 'tags/tag_link', tag: tag
+%br
+%br
 
-%h3 本文
-= Entry.render_markdown(@entry.body).html_safe
+.panel.panel-default
+  .panel-heading
+    %b タグ
+  .panel-body
+    - @entry.tags.each do |tag|
+      = render 'tags/tag_link', tag: tag
 
-%h3 コメント
+.panel.panel-default
+  .panel-heading
+    %b 本文
+  .panel-body
+    = Entry.render_markdown(@entry.body).html_safe
 
-= link_to new_entry_comment_path(@entry) do
-  %button.btn.btn-default コメントする
-
-%table.table.table-striped
-  %tbody
-    - @entry.comments.each do |comment|
-      = render 'comments/comment_row', comment: comment, show_owner: true
+.panel.panel-default
+  .panel-heading
+    %h4
+      コメント
+      .btn-group.pull-right
+        = link_to new_entry_comment_path(@entry) do
+          %button.btn.btn-default コメントする
+  .panel-body
+    %table.table.table-striped
+      %tbody
+        - @entry.comments.each do |comment|
+          = render 'comments/comment_row', comment: comment, show_owner: true
