@@ -23,10 +23,8 @@ class EditRequestsController < ApplicationController
     respond_to do |format|
       if @edit_request.save
         format.html { redirect_to @entry, notice: '編集リクエストを送信しました' }
-        format.json { render :show, status: :created, location: @edit_request }
       else
         format.html { render :new }
-        format.json { render json: @edit_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,7 +36,6 @@ class EditRequestsController < ApplicationController
     @edit_request.destroy
     respond_to do |format|
       format.html { redirect_to @entry, notice: '編集リクエストを削除しました' }
-      format.json { head :no_content }
     end
   end
 
@@ -63,10 +60,8 @@ class EditRequestsController < ApplicationController
     respond_to do |format|
       if EditRequest.apply_patched_body(@entry, @edit_request, params[:body])
         format.html { redirect_to @entry, notice: '編集リクエストを適用しました' }
-        format.json { render :show, status: :created, location: @edit_request }
       else
         format.html { render :edit_apply }
-        format.json { render json: @edit_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -81,10 +76,8 @@ class EditRequestsController < ApplicationController
       respond_to do |format|
         if EditRequest.apply_patched_body(@entry, @edit_request, new_body)
           format.html { redirect_to @entry, notice: '編集リクエストを適用しました' }
-          format.json { render :show, status: :created, location: @edit_request }
         else
           format.html { redirect_to @entry, notice: '編集リクエストを適用できませんでした' }
-          format.json { render json: @edit_request.errors, status: :unprocessable_entity }
         end
       end
     else
