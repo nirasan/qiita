@@ -3,17 +3,9 @@
   への編集リクエスト一覧
 
 %table.table.table-striped
-  %thead
-    %tr
-      %th User
-      %th Title
-
   %tbody
     - @edit_requests.each do |edit_request|
       %tr
         %td= link_to edit_request.user.name, user_path(edit_request.user)
         %td= link_to edit_request.title, entry_edit_request_path(@entry, edit_request)
 
-%br
-
-= link_to 'New Edit request', new_entry_edit_request_path(@entry)
