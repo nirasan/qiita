@@ -2,6 +2,8 @@ class EditRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :entry
 
+  validates :title, :body, presence: true
+
   def self.make_patched_body(entry, edit_request)
     dmp = DiffMatchPatch.new
     diffs = self.diff_lineMode(edit_request.old_body, edit_request.body)

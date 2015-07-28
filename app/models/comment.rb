@@ -2,6 +2,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :entry
 
+  validates :body, presence: true
+
   after_create :create_info
   after_create :create_feed
 

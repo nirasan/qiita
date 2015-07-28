@@ -10,6 +10,8 @@ class Entry < ActiveRecord::Base
 
   has_many :edit_requests
 
+  validates :title, :body, :tag_string, presence: true
+
   after_create :tag_string_to_tags
   after_update :tag_string_to_tags #NOTE タグを作成してからフィードの作成が実行されるように after_save ではなく after_create と after_update を使っている
   after_update :create_info
